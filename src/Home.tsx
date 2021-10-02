@@ -19,14 +19,39 @@ import {
   shortenAddress,
 } from "./candy-machine";
 
-const ConnectButton = styled(WalletDialogButton)``;
+
+const ConnectButton = styled(WalletDialogButton)`
+background-color:#9e3737 !important; 
+border-radius:26px !important;
+border:3px solid #00e1ff !important;
+cursor:pointer !important;
+color:#dace27 !important;
+font-family:Impact !important;
+font-size:28px !important;
+padding:11px 76px !important;
+text-decoration:none !important;
+text-shadow:1px 1px 0px #000000 !important;`;
 
 const CounterText = styled.span``; // add your styles here
 
 const MintContainer = styled.div``; // add your styles here
 
-const MintButton = styled(Button)``; // add your styles here
+const MintButton = styled(Button)`
+background-color:#9e3737 !important; 
+border-radius:26px !important;
+border:3px solid #00e1ff !important;
+cursor:pointer !important;
+color:#dace27 !important;
+font-family:Impact !important;
+font-size:28px !important;
+padding:11px 76px !important;
+text-decoration:none !important;
+text-shadow:1px 1px 0px #000000 !important;`; // add your styles here
 
+
+// let _itemsAvailable;
+// let _itemsRedeemed;
+// let _itemsRemaining;
 export interface HomeProps {
   candyMachineId: anchor.web3.PublicKey;
   config: anchor.web3.PublicKey;
@@ -37,6 +62,10 @@ export interface HomeProps {
 }
 
 const Home = (props: HomeProps) => {
+  const [itemsAvailable, setAvailable] = useState<number>();
+  const [itemsRedeemed, setRedeemed] = useState<number>();
+  const [itemsRemaining, setRemaining] = useState<number>();
+
   const [balance, setBalance] = useState<number>();
   const [isActive, setIsActive] = useState(false); // true when countdown completes
   const [isSoldOut, setIsSoldOut] = useState(false); // true when items remaining is zero
@@ -132,13 +161,15 @@ const Home = (props: HomeProps) => {
     (async () => {
       if (!wallet) return;
 
-      const { candyMachine, goLiveDate, itemsRemaining } =
+      const { candyMachine, goLiveDate, itemsRemaining, itemsAvailable, itemsRedeemed} =
         await getCandyMachineState(
           wallet as anchor.Wallet,
           props.candyMachineId,
           props.connection
         );
-
+      setAvailable(itemsAvailable)
+      setRemaining(itemsRemaining)
+      setRedeemed(itemsRedeemed)
       setIsSoldOut(itemsRemaining === 0);
       setStartDate(goLiveDate);
       setCandyMachine(candyMachine);
@@ -147,42 +178,39 @@ const Home = (props: HomeProps) => {
 
   return (
     <main>
-      {wallet && (
-        <p>Address: {shortenAddress(wallet.publicKey.toBase58() || "")}</p>
-      )}
-
-      {wallet && (
-        <p>Balance: {(balance || 0).toLocaleString()} SOL</p>
-      )}
-
-      <MintContainer>
-        {!wallet ? (
-          <ConnectButton>Connect Wallet</ConnectButton>
-        ) : (
-          <MintButton
-            disabled={isSoldOut || isMinting || !isActive}
-            onClick={onMint}
-            variant="contained"
-          >
-            {isSoldOut ? (
-              "SOLD OUT"
-            ) : isActive ? (
-              isMinting ? (
-                <CircularProgress />
+      <div className="containerInfo">
+        {wallet && (<p className="textMint">Bandits Taken : {itemsRedeemed}/{itemsAvailable}</p>)}
+      </div>
+      <div className="containerBtn">
+        <MintContainer>
+          {!wallet ? (
+              <ConnectButton>CONNECT WALLET</ConnectButton>        
+          ) : (
+            <MintButton
+              disabled={isSoldOut || isMinting || !isActive}
+              onClick={onMint}
+              variant="contained"
+            >
+              {isSoldOut ? (
+                "SOLD OUT"
+              ) : isActive ? (
+                isMinting ? (
+                  <CircularProgress />
+                ) : (
+                  "MINT"
+                )
               ) : (
-                "MINT"
-              )
-            ) : (
-              <Countdown
-                date={startDate}
-                onMount={({ completed }) => completed && setIsActive(true)}
-                onComplete={() => setIsActive(true)}
-                renderer={renderCounter}
-              />
-            )}
-          </MintButton>
-        )}
-      </MintContainer>
+                <Countdown
+                  date={startDate}
+                  onMount={({ completed }) => completed && setIsActive(true)}
+                  onComplete={() => setIsActive(true)}
+                  renderer={renderCounter}
+                />
+              )}
+            </MintButton>
+          )}
+        </MintContainer>
+      </div>
 
       <Snackbar
         open={alertState.open}

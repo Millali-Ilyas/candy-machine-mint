@@ -1,4 +1,4 @@
-body {
+/* body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -12,4 +12,125 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}*/
+#root{
+  position: absolute;
+  width: 40vw;
+  margin: 0;
+  top: 65%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%)
+} 
+#mint{
+  height: 115vh;
+  background-image: url("hero.JPG");
+  background-size: cover;
+  position: relative
+  /* background: yellow; */
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  #mint {
+    padding-top: 160px;
+  }
+}
+
+@media (max-width: 767px) {
+  #mint {
+    padding-top: 130px;
+  }
+  .swiper-container{
+    display: none;
+  }
+}
+.icon {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  overflow: hidden;
+}
+.containerInfo{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.containerMint{
+  justify-content: space-between;
+  margin: 2%;
+  display: flex;
+}
+.containerBtn{
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+}
+.textMint{
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 19px;
+  padding: 2%;
+  background-color: #200c0c;
+  color: #b17575;
+  border: 1px solid #8d3f3f;
+  border-radius: 15px;
+}
+.swiper-container {
+  width: 100vw;
+  height: 350px;
+  border: 25px solid #cf8d37;
+  background-color: #cf8d37;
+} 
+.swiper-slide{
+  border: 3px solid #200c0c;
+  border-radius: 40px;
+}
+.image12 {
+  background-image: url('./assets/images/collection/0m.JPG');
+  background-size: cover;
+}
+
+.image2 {
+  background-image: url('./assets/images/collection/1nm.jpg');
+  background-size: cover;
+}
+.image3{
+  background-image: url('./assets/images/collection/2nm.jpg');
+  background-size: cover;
+}
+.image4{
+  background-image: url('./assets/images/collection/3m.JPG');
+  background-size: cover;
+}
+.image10{
+  background-image: url('./assets/images/collection/3mm.jpg');
+  background-size: cover;
+}
+.image6{
+  background-image: url('./assets/images/collection/4,,,,,,.jpg');
+  background-size: cover;
+}
+.image7{
+  background-image: url('./assets/images/collection/15m.JPG');
+  background-size: cover;
+}
+.image11{
+  background-image: url('./assets/images/collection/19m.JPG');
+  background-size: cover;
+}
+.image9{
+  background-image: url('./assets/images/collection/20m.JPG');
+  background-size: cover;
+}
+.image5{
+  background-image: url('./assets/images/collection/967.png');
+  background-size: cover;
+}
+.image8{
+  background-image: url('./assets/images/collection/993.png');
+  background-size: cover;
+}
+.image1{
+  background-image: url('./assets/images/collection/999.png');
+  background-size: cover;
 }
