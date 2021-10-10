@@ -107,6 +107,14 @@ const Home = (props: HomeProps) => {
             message: "Congratulations! Mint succeeded!",
             severity: "success",
           });
+          const {itemsRedeemed, itemsRemaining} =
+            await getCandyMachineState(
+              wallet as anchor.Wallet,
+              props.candyMachineId,
+              props.connection
+            );
+            setRedeemed(itemsRedeemed)
+            setIsSoldOut(itemsRemaining === 0);
         } else {
           setAlertState({
             open: true,
@@ -173,9 +181,10 @@ const Home = (props: HomeProps) => {
       setIsSoldOut(itemsRemaining === 0);
       setStartDate(goLiveDate);
       setCandyMachine(candyMachine);
+      setIsActive(false)
     })();
   }, [wallet, props.candyMachineId, props.connection]);
-
+  console.log(isSoldOut,isMinting,isActive)
   return (
     <main>
       <div className="containerInfo">
@@ -183,10 +192,8 @@ const Home = (props: HomeProps) => {
       </div>
       <div className="containerBtn">
         <MintContainer>
-          {!wallet ? (
-              <ConnectButton>CONNECT WALLET</ConnectButton>        
-          ) : (
-            <MintButton
+          {!wallet ? (<ConnectButton>CONNECT WALLET</ConnectButton>) 
+          : (<MintButton
               disabled={isSoldOut || isMinting || !isActive}
               onClick={onMint}
               variant="contained"

@@ -85,6 +85,14 @@ code {
   border: 3px solid #200c0c;
   border-radius: 40px;
 }
+.roadmap{
+  background-color: #9e3737;
+}
+
+
+
+
+
 .image12 {
   background-image: url('./assets/images/collection/0m.JPG');
   background-size: cover;
